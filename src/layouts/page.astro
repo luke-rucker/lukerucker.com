@@ -1,0 +1,73 @@
+---
+import '@/styles/globals.css'
+import '@fontsource-variable/jetbrains-mono'
+import Header from '../components/header.astro'
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts'
+
+interface Props {
+  title?: string
+  description?: string
+  image?: string
+}
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+
+const {
+  title = SITE_TITLE,
+  description = SITE_DESCRIPTION,
+  image = '/blog-placeholder-1.jpg',
+} = Astro.props
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+
+    <link rel="canonical" href={canonicalURL} />
+
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.url)} />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+    <script>
+      import { createIcons, Globe, Mail, ArrowRight } from 'lucide'
+
+      createIcons({
+        icons: {
+          Globe,
+          Mail,
+          ArrowRight,
+        },
+      })
+    </script>
+  </head>
+  <body>
+    <Header />
+
+    <slot />
+
+    <footer class="mb-6"></footer>
+
+    <aside
+      class="fixed h-6 z-10 bg-background bottom-0 left-0 right-0 border-t text-center"
+    >
+      Hello
+    </aside>
+  </body>
+</html>
