@@ -7,28 +7,42 @@ import { Gallery } from '@/components/gallery'
 
 import berlinUrl from '@/assets/berlin.jpeg'
 import bostonUrl from '@/assets/boston.jpeg'
+import brandenburgUrl from '@/assets/brandenburg.jpeg'
 import brickellUrl from '@/assets/brickell.jpeg'
 import brusselsUrl from '@/assets/brussels.jpeg'
+import budapestCafeUrl from '@/assets/budapest-cafe.jpeg'
+import budapestChurchUrl from '@/assets/budapest-church.jpeg'
+import budapestOperaHouseUrl from '@/assets/budapest-opera-house.jpeg'
 import budapestUrl from '@/assets/budapest.jpeg'
+import chicagoUrl from '@/assets/chicago.jpeg'
 import cologneUrl from '@/assets/cologne.jpeg'
 import miamiBeachUrl from '@/assets/miami-beach.jpeg'
 import munichResidenceUrl from '@/assets/munich-residence.jpeg'
 import munichUrl from '@/assets/munich.jpeg'
 import nearFrankfurtUrl from '@/assets/near-frankfurt.jpeg'
+import pragueCityCenter from '@/assets/prague-city-center.jpeg'
 import pragueUrl from '@/assets/prague.jpeg'
+import stralsundUrl from '@/assets/stralsund.jpeg'
 
 const unprocessedGalleryImages = [
   { url: berlinUrl, alt: 'Berlin' },
   { url: bostonUrl, alt: 'Boston' },
+  { url: brandenburgUrl, alt: 'Brandenburg Gate, Berlin' },
   { url: brickellUrl, alt: 'Brickell' },
   { url: brusselsUrl, alt: 'Brussels' },
+  { url: budapestCafeUrl, alt: 'Cafe, Budapest' },
+  { url: budapestChurchUrl, alt: 'On top of a church, Budapest' },
+  { url: budapestOperaHouseUrl, alt: 'Opera House, Budapest' },
   { url: budapestUrl, alt: 'Budapest' },
+  { url: chicagoUrl, alt: 'Chicago' },
   { url: cologneUrl, alt: 'Cologne' },
   { url: miamiBeachUrl, alt: 'Miami Beach' },
   { url: munichResidenceUrl, alt: 'Munich Residence' },
   { url: munichUrl, alt: 'Munich' },
   { url: nearFrankfurtUrl, alt: 'Near Frankfurt' },
+  { url: pragueCityCenter, alt: 'City Center, Prague' },
   { url: pragueUrl, alt: 'Prague' },
+  { url: stralsundUrl, alt: 'Stralsund' },
 ]
 
 const galleryItems = await Promise.all(
@@ -37,12 +51,31 @@ const galleryItems = await Promise.all(
     image: await getImage({ src: galleryItem.url }),
   }))
 )
+
+const workItems = [
+  {
+    title: 'Fullstack Typescript <3',
+    tech: [
+      'React',
+      'React Native',
+      'Node.js',
+      'tRPC',
+      'Postgres',
+      'BullMQ',
+      'Solidity',
+      'Docker',
+      'Docker Swarm',
+    ],
+    description:
+      'Worked with a young German start up, writing their first lines of code to eventually leading their team of internal and external resources. During my time on this project, I architected robust file upload processing pipelines, mentored junior developers enabling them to confidently design and ship features, and smiled and cried while running typescript in all the places.',
+  },
+]
 ---
 
 <Page>
   <main class="container mx-auto">
     <section
-      class="py-24 flex flex-col-reverse md:flex-row justify-between gap-2"
+      class="pt-24 pb-20 flex flex-col-reverse md:flex-row justify-between gap-2"
     >
       <div>
         <header>
@@ -79,25 +112,36 @@ const galleryItems = await Promise.all(
     </section>
   </main>
 
-  <section class="container mx-auto">
-    <header class="mb-4">
-      <h2 class="text-xl font-semibold">Work</h2>
+  <section class="mb-20">
+    <!-- <header class="mb-4">
+      <h2 class="flex items-center">
+        <i data-lucide="image" class="mr-2.5 h-6 w-6 inline"></i>
+        <span class="text-xl font-semibold">Gallery</span>
+      </h2>
 
-      <p class="mt-2 text-sm text-muted-foreground">
+      <p class="mt-2 text-muted-foreground">
         Some pictures I've taken. Shot on my iPhone 13 Pro.
       </p>
-    </header>
-  </section>
-
-  <section class="container mx-auto">
-    <header class="mb-4">
-      <h2 class="text-xl font-semibold">Gallery</h2>
-
-      <p class="mt-2 text-sm text-muted-foreground">
-        Some pictures I've taken. Shot on my iPhone 13 Pro.
-      </p>
-    </header>
+    </header> -->
 
     <Gallery items={galleryItems} client:load />
+  </section>
+
+  <section class="container mx-auto mb-24">
+    <header class="mb-4">
+      <h2 class="flex items-center">
+        <i data-lucide="briefcase" class="mr-2.5 h-6 w-6 inline"></i>
+        <span class="text-xl font-semibold">Work</span>
+      </h2>
+
+      <p class="mt-2 text-muted-foreground">
+        I currently work as a freelancer doing full stack web dev for different
+        stages of teams and products. I particuarly enjoy the challenges of
+        working with young teams, taking a product from idea to the world.
+        <a href="/work" class="underline">Read more</a>
+      </p>
+    </header>
+
+    <ul></ul>
   </section>
 </Page>

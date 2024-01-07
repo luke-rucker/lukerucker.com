@@ -2,11 +2,9 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
 } from '@/components/ui/carousel'
-import { Card, CardContent } from '@/components/ui/card'
 import type { GetImageResult } from 'astro'
+import Autoplay from 'embla-carousel-autoplay'
 
 type GalleryItem = {
   image: GetImageResult
@@ -16,26 +14,30 @@ type GalleryItem = {
 export function Gallery({ items }: { items: Array<GalleryItem> }) {
   return (
     <Carousel
+      className="overflow-x-hidden"
+      plugins={[
+        Autoplay({
+          delay: 2000,
+        }),
+      ]}
       opts={{
         align: 'start',
+        loop: true,
       }}
-      className="w-full"
     >
       <CarouselContent>
         {items.map((item, index) => (
-          <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+          <CarouselItem key={index} className="basis-1/12">
             <img
               src={item.image.src}
               alt={item.alt}
               {...item.image.attributes}
-              className="aspect-3/4"
+              className="aspect-3/4 rounded"
               loading="eager"
             />
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
     </Carousel>
   )
 }

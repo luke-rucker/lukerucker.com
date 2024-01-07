@@ -45,14 +45,38 @@ const {
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
+    <script is:inline>
+      const persistedTheme = localStorage.getItem('theme')
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
+        .matches
+        ? 'dark'
+        : 'light'
+
+      const theme =
+        persistedTheme === 'system'
+          ? systemTheme
+          : persistedTheme ?? systemTheme
+
+      document.documentElement.classList.remove('light', 'dark')
+      document.documentElement.classList.add(theme)
+    </script>
     <script>
-      import { createIcons, Globe, Mail, ArrowRight } from 'lucide'
+      import {
+        createIcons,
+        Globe,
+        Mail,
+        ArrowRight,
+        Image,
+        Briefcase,
+      } from 'lucide'
 
       createIcons({
         icons: {
           Globe,
           Mail,
           ArrowRight,
+          Image,
+          Briefcase,
         },
       })
     </script>
