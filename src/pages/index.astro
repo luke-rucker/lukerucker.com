@@ -1,5 +1,5 @@
 ---
-import { Image, getImage } from 'astro:assets'
+import { Image } from 'astro:assets'
 import { getCollection, getDataEntryById } from 'astro:content'
 import Page from '@/layouts/page.astro'
 import { Gallery } from '@/components/gallery'
@@ -7,16 +7,10 @@ import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { buttonVariants } from '@/components/ui/button'
 import meUrl from '@/assets/me.jpg'
+import { getImagesWithBlurhash } from '@/lib/images'
 
-// TODO: https://plaiceholder.co/docs/examples/astro
 const pics = await getCollection('pics')
-
-const galleryItems = await Promise.all(
-  pics.map(async pic => ({
-    ...pic,
-    image: await getImage({ src: pic.data.src }),
-  }))
-)
+const galleryItems = await getImagesWithBlurhash(pics.map(pic => pic.data))
 
 const projects = await Promise.all([
   getDataEntryById('projects', 'full-stack-typescript'),
@@ -73,7 +67,7 @@ const projects = await Promise.all([
       <p class="sr-only">Some pictures I've taken. Shot on my iPhone 13 Pro.</p>
     </header>
 
-    <Gallery items={galleryItems} client:load />
+    <Gallery images={galleryItems} client:load />
   </section>
 
   <section class="container mx-auto mb-20">

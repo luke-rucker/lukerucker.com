@@ -3,13 +3,10 @@ import {
   CarouselContent,
   CarouselItem,
 } from '@/components/ui/carousel'
-import type { GetImageResult } from 'astro'
-import type { CollectionEntry } from 'astro:content'
+import type { ImageWithBlurhash } from '@/lib/images'
 import Autoplay from 'embla-carousel-autoplay'
 
-type GalleryItem = CollectionEntry<'pics'> & { image: GetImageResult }
-
-export function Gallery({ items }: { items: Array<GalleryItem> }) {
+export function Gallery({ images }: { images: Array<ImageWithBlurhash> }) {
   return (
     <Carousel
       className="overflow-x-hidden"
@@ -24,18 +21,20 @@ export function Gallery({ items }: { items: Array<GalleryItem> }) {
       }}
     >
       <CarouselContent>
-        {items.map((item, index) => (
+        {images.map(({ img, css }, index) => (
           <CarouselItem
             key={index}
-            className="basis-1/4 md:basis-1/6 lg:basis-1/12"
+            className="basis-1/4 md:basis-1/6 lg:basis-1/12 "
           >
-            <img
-              src={item.image.src}
-              alt={item.data.alt}
-              {...item.image.attributes}
-              className="aspect-3/4 rounded"
-              loading="eager"
-            />
+            <div className="relative block overflow-hidden aspect-3/4 rounded">
+              <div
+                aria-hidden
+                style={css}
+                className="absolute inset-0 w-full h-full transform scale-150 filter blur-2xl z-[-1]"
+              />
+
+              <img {...img} loading="lazy" />
+            </div>
           </CarouselItem>
         ))}
       </CarouselContent>
