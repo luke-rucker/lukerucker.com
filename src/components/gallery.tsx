@@ -27,7 +27,10 @@ export function Gallery({ items }: { items: Array<GalleryItem> }) {
     >
       <CarouselContent>
         {items.map((item, index) => (
-          <CarouselItem key={index} className="basis-1/12">
+          <CarouselItem
+            key={index}
+            className="basis-1/4 md:basis-1/6 lg:basis-1/12"
+          >
             <img
               src={item.image.src}
               alt={item.alt}

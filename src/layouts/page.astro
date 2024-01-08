@@ -3,6 +3,7 @@ import '@/styles/globals.css'
 import '@fontsource-variable/jetbrains-mono'
 import Header from '../components/header.astro'
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts'
+import { CommandDialog } from '@/components/command-dialog'
 
 interface Props {
   title?: string
@@ -61,21 +62,13 @@ const {
       document.documentElement.classList.add(theme)
     </script>
     <script>
-      import {
-        createIcons,
-        Globe,
-        Mail,
-        ArrowRight,
-        Image,
-        Briefcase,
-      } from 'lucide'
+      import { createIcons, Globe, Mail, ArrowRight, Briefcase } from 'lucide'
 
       createIcons({
         icons: {
           Globe,
           Mail,
           ArrowRight,
-          Image,
           Briefcase,
         },
       })
@@ -86,12 +79,21 @@ const {
 
     <slot />
 
-    <footer class="mb-6"></footer>
+    <footer class="mb-8"></footer>
+
+    <CommandDialog client:load />
 
     <aside
-      class="fixed h-6 z-10 bg-background bottom-0 left-0 right-0 border-t text-center"
+      class="fixed h-8 z-10 bg-background bottom-0 left-0 right-0 border-t flex items-center justify-center"
     >
-      Hello
+      <p class="text-sm text-muted-foreground">
+        Press{' '}
+        <kbd
+          class="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100"
+        >
+          <span class="text-xs">⌘</span>J
+        </kbd>
+      </p>
     </aside>
   </body>
 </html>

@@ -10,7 +10,7 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap(),
-    react({ experimentalReactChildren: true }),
+    react(),
     tailwind({
       applyBaseStyles: false,
     }),

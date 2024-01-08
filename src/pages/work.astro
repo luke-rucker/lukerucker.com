@@ -1,0 +1,74 @@
+---
+import { Badge } from '@/components/ui/badge'
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardFooter,
+  CardTitle,
+} from '@/components/ui/card'
+import Page from '@/layouts/page.astro'
+import { getCollection } from 'astro:content'
+
+const projects = await getCollection('projects')
+
+const allTheTechs = projects.reduce<Array<string>>((techs, project) => {
+  project.data.tech.forEach(tech => techs.push(tech))
+  return techs
+}, [])
+const techs = [...new Set(allTheTechs)]
+---
+
+<Page>
+  <main class="container mx-auto">
+    <section class="pt-24 pb-20">
+      <header>
+        <h1 class="text-4xl font-extrabold">My work</h1>
+      </header>
+
+      <p class="mt-5 text-muted-foreground mb-8">
+        Some examples of projects I've been involved in while freelancing, for
+        fun, or otherwise. I'm not currently looking for new work, but <a
+          class="underline"
+          href="mailto:me@lukerucker.com">drop me a line</a
+        > if you want to work with me in the future.
+      </p>
+
+      <ul class="flex flex-wrap gap-2 mb-12">
+        {
+          techs.map(tech => (
+            <li>
+              <Badge>{tech}</Badge>
+            </li>
+          ))
+        }
+      </ul>
+
+      <ul class="grid grid-cols-2 gap-4 grid-flow-row">
+        {
+          projects.map(project => (
+            <li>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">
+                    {project.data.title}
+                  </CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <p class="">{project.data.description}</p>
+                </CardContent>
+
+                <CardFooter className="gap-1.5 flex-wrap">
+                  {project.data.tech.map(tech => (
+                    <Badge>{tech}</Badge>
+                  ))}
+                </CardFooter>
+              </Card>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </main>
+</Page>

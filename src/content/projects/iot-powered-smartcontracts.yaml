@@ -1,0 +1,9 @@
+title: IOT Powered Smart Contracts for the Energy Industry
+description: 'In high school, I worked for a Houston area start up trying to replace bloated and error prone billing processes between companies and service providers in the Energy industry with IOT data driven Smart Contracts. I wrote the first invoicing smart contracts, and built an API in Java that distributed these invoices to our ERP system integrations: Quickbooks Desktop, which I built, and SAP.'
+tech:
+  - Java
+  - Jersey
+  - SQL Server
+  - Node.js
+  - Docker
+  - Kubernetes
