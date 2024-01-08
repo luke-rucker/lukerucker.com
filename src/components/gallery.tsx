@@ -4,12 +4,10 @@ import {
   CarouselItem,
 } from '@/components/ui/carousel'
 import type { GetImageResult } from 'astro'
+import type { CollectionEntry } from 'astro:content'
 import Autoplay from 'embla-carousel-autoplay'
 
-type GalleryItem = {
-  image: GetImageResult
-  alt: string
-}
+type GalleryItem = CollectionEntry<'pics'> & { image: GetImageResult }
 
 export function Gallery({ items }: { items: Array<GalleryItem> }) {
   return (
@@ -33,7 +31,7 @@ export function Gallery({ items }: { items: Array<GalleryItem> }) {
           >
             <img
               src={item.image.src}
-              alt={item.alt}
+              alt={item.data.alt}
               {...item.image.attributes}
               className="aspect-3/4 rounded"
               loading="eager"

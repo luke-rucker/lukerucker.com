@@ -6,59 +6,17 @@ import { Gallery } from '@/components/gallery'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { buttonVariants } from '@/components/ui/button'
-
 import meUrl from '@/assets/me.jpg'
-import berlinUrl from '@/assets/berlin.jpeg'
-import bostonUrl from '@/assets/boston.jpeg'
-import brandenburgUrl from '@/assets/brandenburg.jpeg'
-import brickellUrl from '@/assets/brickell.jpeg'
-import brusselsUrl from '@/assets/brussels.jpeg'
-import budapestCafeUrl from '@/assets/budapest-cafe.jpeg'
-import budapestChurchUrl from '@/assets/budapest-church.jpeg'
-import budapestOperaHouseUrl from '@/assets/budapest-opera-house.jpeg'
-import budapestUrl from '@/assets/budapest.jpeg'
-import chicagoUrl from '@/assets/chicago.jpeg'
-import cologneUrl from '@/assets/cologne.jpeg'
-import miamiBeachUrl from '@/assets/miami-beach.jpeg'
-import munichResidenceUrl from '@/assets/munich-residence.jpeg'
-import munichUrl from '@/assets/munich.jpeg'
-import nearFrankfurtUrl from '@/assets/near-frankfurt.jpeg'
-import pragueCityCenter from '@/assets/prague-city-center.jpeg'
-import pragueUrl from '@/assets/prague.jpeg'
-import stralsundUrl from '@/assets/stralsund.jpeg'
-
-// const unprocessedGalleryImages = [
-//   { url: berlinUrl, alt: 'Berlin' },
-//   { url: bostonUrl, alt: 'Boston' },
-//   { url: brandenburgUrl, alt: 'Brandenburg Gate, Berlin' },
-//   { url: brickellUrl, alt: 'Brickell' },
-//   { url: brusselsUrl, alt: 'Brussels' },
-//   { url: budapestCafeUrl, alt: 'Cafe, Budapest' },
-//   { url: budapestChurchUrl, alt: 'On top of a church, Budapest' },
-//   { url: budapestOperaHouseUrl, alt: 'Opera House, Budapest' },
-//   { url: budapestUrl, alt: 'Budapest' },
-//   { url: chicagoUrl, alt: 'Chicago' },
-//   { url: cologneUrl, alt: 'Cologne' },
-//   { url: miamiBeachUrl, alt: 'Miami Beach' },
-//   { url: munichResidenceUrl, alt: 'Munich Residence' },
-//   { url: munichUrl, alt: 'Munich' },
-//   { url: nearFrankfurtUrl, alt: 'Near Frankfurt' },
-//   { url: pragueCityCenter, alt: 'City Center, Prague' },
-//   { url: pragueUrl, alt: 'Prague' },
-//   { url: stralsundUrl, alt: 'Stralsund' },
-// ]
 
 // TODO: https://plaiceholder.co/docs/examples/astro
 const pics = await getCollection('pics')
-console.log(pics[0].data.src)
+
 const galleryItems = await Promise.all(
   pics.map(async pic => ({
     ...pic,
     image: await getImage({ src: pic.data.src }),
   }))
 )
-
-console.log(galleryItems[0].image)
 
 const projects = await Promise.all([
   getDataEntryById('projects', 'full-stack-typescript'),
