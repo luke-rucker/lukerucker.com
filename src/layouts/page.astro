@@ -1,9 +1,9 @@
 ---
 import '@/styles/globals.css'
-import '@fontsource-variable/jetbrains-mono'
 import Header from '../components/header.astro'
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts'
 import { CommandDialog } from '@/components/command-dialog'
+import { ViewTransitions } from 'astro:transitions'
 
 interface Props {
   title?: string
@@ -16,7 +16,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 const {
   title = SITE_TITLE,
   description = SITE_DESCRIPTION,
-  image = '/blog-placeholder-1.jpg',
+  image = '/me.jpg',
 } = Astro.props
 ---
 
@@ -25,7 +25,7 @@ const {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
 
     <link rel="canonical" href={canonicalURL} />
@@ -46,32 +46,41 @@ const {
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
+    <ViewTransitions />
+
     <script is:inline>
-      const persistedTheme = localStorage.getItem('theme')
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
-        .matches
-        ? 'dark'
-        : 'light'
+      function setTheme() {
+        const persistedTheme = localStorage.getItem('theme')
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
+          .matches
+          ? 'dark'
+          : 'light'
 
-      const theme =
-        persistedTheme === 'system'
-          ? systemTheme
-          : persistedTheme ?? systemTheme
+        const theme =
+          persistedTheme === 'system'
+            ? systemTheme
+            : persistedTheme ?? systemTheme
 
-      document.documentElement.classList.remove('light', 'dark')
-      document.documentElement.classList.add(theme)
+        document.documentElement.classList.remove('light', 'dark')
+        document.documentElement.classList.add(theme)
+      }
+
+      setTheme()
+      document.addEventListener('astro:page-load', setTheme)
     </script>
-    <script>
-      import { createIcons, Globe, Mail, ArrowRight, Briefcase } from 'lucide'
 
-      createIcons({
-        icons: {
-          Globe,
-          Mail,
-          ArrowRight,
-          Briefcase,
-        },
-      })
+    <script>
+      import { createIcons, Globe, Mail, ArrowRight } from 'lucide'
+
+      document.addEventListener('astro:page-load', () =>
+        createIcons({
+          icons: {
+            Globe,
+            Mail,
+            ArrowRight,
+          },
+        })
+      )
     </script>
   </head>
   <body>
@@ -79,12 +88,12 @@ const {
 
     <slot />
 
-    <footer class="mb-8"></footer>
+    <footer class="md:mb-8"></footer>
 
-    <CommandDialog client:load />
+    <CommandDialog client:media="(min-width: 768px)" />
 
     <aside
-      class="fixed h-8 z-10 bg-background bottom-0 left-0 right-0 border-t flex items-center justify-center"
+      class="hidden md:flex items-center justify-center fixed h-8 z-10 bg-background bottom-0 left-0 right-0 border-t"
     >
       <p class="text-sm text-muted-foreground">
         Press{' '}

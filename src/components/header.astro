@@ -1,8 +1,8 @@
 ---
-import { Image } from 'astro:assets'
 import meUrl from '@/assets/me.jpg'
 import { SITE_TITLE } from '../consts'
 import { buttonVariants } from '@/components/ui/button'
+import ImageWithBlurhash from '@/components/image-with-blurhash.astro'
 
 const navItems = [
   { title: 'About', to: '/about' },
@@ -15,13 +15,9 @@ const navItems = [
   <nav class="container mx-auto flex items-center justify-between py-3">
     <h2>
       <a href="/" class="flex items-center gap-3">
-        <Image
-          src={meUrl}
-          alt={SITE_TITLE}
-          class="rounded h-10 w-10 object-center"
-        />
+        <ImageWithBlurhash src={meUrl} alt={SITE_TITLE} className="h-10 w-10" />
 
-        <span>Luke Rucker</span>
+        <span class="font-medium">Luke Rucker</span>
       </a>
     </h2>
 

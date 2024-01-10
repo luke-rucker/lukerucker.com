@@ -1,0 +1,11 @@
+---
+title: Realtime Time Clock for Pharmacies
+tech:
+  - Ruby on Rails
+  - ActiveCable
+  - Postgres
+  - Docker
+  - Docker Swarm
+---
+
+Worked with a team responsible for the maintenance and further development of a Pharmacy Management application. I built a realtime time clock dashboard that allowed pharmacy employees to clock in and out of work, record breaks, and provide an overview of present employees for management. This was a part of a broader effort to build out shift planning, vacation management, and time tracking and reporting within the larger system.

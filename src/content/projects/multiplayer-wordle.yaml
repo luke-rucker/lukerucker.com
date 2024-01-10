@@ -1,7 +1,0 @@
-title: Multiplayer Wordle
-description: 'Wordledash.io was the result of getting competitive about Wordle, and wanting to try out some new tech and really interesting infrastructure (looking at you Partykit). It has two game modes: dash and coop. In dash mode, you race in separate boards against an opponent trying to guess the same word. In coop mode, you take turns guessing the wordle in the same board. I built a global leaderboard and ranking for it, as well as a private lobby and matchmaking system.'
-tech:
-  - React
-  - Typescript
-  - Partykit
-  - Supabase

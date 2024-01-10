@@ -1,0 +1,44 @@
+---
+import { Card } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import meUrl from '@/assets/me-full.jpg'
+import type { CollectionEntry } from 'astro:content'
+import ImageWithBlurhash from '@/components/image-with-blurhash.astro'
+
+interface Props {
+  project: CollectionEntry<'projects'>
+}
+
+const { project } = Astro.props
+const { Content } = await project.render()
+---
+
+<div class="md:grid md:grid-cols-3 rounded-xl shadow">
+  <ImageWithBlurhash
+    src={meUrl}
+    alt="blah"
+    className="col-span-1 rounded-r-none"
+    imageClassName="w-full h-full object-cover rounded-r-none"
+  />
+
+  <div
+    class="col-span-2 p-4 rounded-xl rounded-l-none border bg-card text-card-foreground"
+  >
+    <h4 class="text-lg font-medium mb-2">{project.data.title}</h4>
+
+    <p class="sr-only">Technologies:</p>
+    <ul class="flex gap-x-2 gap-y-1 flex-wrap mb-4">
+      {
+        project.data.tech.map(tech => (
+          <li>
+            <Badge>{tech}</Badge>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="prose dark:prose-invert">
+      <Content />
+    </div>
+  </div>
+</div>

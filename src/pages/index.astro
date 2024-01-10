@@ -1,20 +1,22 @@
 ---
 import { Image } from 'astro:assets'
-import { getCollection, getDataEntryById } from 'astro:content'
+import { getCollection, getEntryBySlug } from 'astro:content'
 import Page from '@/layouts/page.astro'
 import { Gallery } from '@/components/gallery'
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
 import { buttonVariants } from '@/components/ui/button'
 import meUrl from '@/assets/me.jpg'
-import { getImagesWithBlurhash } from '@/lib/images'
+import { getImageWithBlurhash } from '@/lib/images'
+import ProjectCard from '@/components/project-card.astro'
+import ImageWithBlurhash from '@/components/image-with-blurhash.astro'
 
 const pics = await getCollection('pics')
-const galleryItems = await getImagesWithBlurhash(pics.map(pic => pic.data))
+const galleryItems = await Promise.all(
+  pics.map(pic => getImageWithBlurhash(pic.data))
+)
 
 const projects = await Promise.all([
-  getDataEntryById('projects', 'full-stack-typescript'),
-  getDataEntryById('projects', 'rug-design-portal'),
+  getEntryBySlug('projects', 'full-stack-typescript'),
+  getEntryBySlug('projects', 'rug-design-portal'),
 ])
 ---
 
@@ -25,18 +27,24 @@ const projects = await Promise.all([
     >
       <div>
         <header>
-          <h1 class="text-4xl font-extrabold">Hi, I'm Luke Rucker :)</h1>
+          <h1 class="text-4xl font-extrabold">Luke Rucker</h1>
         </header>
 
-        <p class="mt-5 text-muted-foreground">
+        <p class="mt-5 mb-2 text-muted-foreground">
           Freelance dev building for the web. Typescript fanboy. Cyclist.
         </p>
 
-        <p class="mt-3 text-muted-foreground text-sm">
-          <i data-lucide="globe" class="h-5 w-5 inline"></i> Cambridge, MA, EST
-        </p>
+        <a
+          href="https://www.google.com/maps/place/Cambridge,+MA"
+          target="_blank"
+          class="text-muted-foreground text-sm"
+        >
+          <i data-lucide="globe" class="h-5 w-5 inline mr-1.5"></i><span
+            class="hover:underline">Cambridge, MA, EST</span
+          >
+        </a>
 
-        <footer class="mt-6">
+        <footer class="mt-6 space-x-2">
           <a
             href="mailto:me@lukerucker.com"
             class={buttonVariants({ variant: 'default' })}
@@ -50,10 +58,10 @@ const projects = await Promise.all([
         </footer>
       </div>
 
-      <Image
+      <ImageWithBlurhash
         src={meUrl}
         alt="Me, Luke Rucker."
-        class="rounded h-64 w-64 mb-4"
+        className="h-64 w-64"
       />
     </section>
   </main>
@@ -65,50 +73,39 @@ const projects = await Promise.all([
       </h2>
 
       <p class="sr-only">Some pictures I've taken. Shot on my iPhone 13 Pro.</p>
-    </header>
 
-    <Gallery images={galleryItems} client:load />
+      <Gallery items={galleryItems} client:load />
+    </header>
   </section>
 
   <section class="container mx-auto mb-20">
     <header class="mb-4">
-      <h2 class="flex items-center">
-        <i data-lucide="briefcase" class="mr-2.5 h-6 w-6 inline"></i>
-        <span class="text-xl font-semibold">Work</span>
-      </h2>
+      <h2 class="text-2xl font-semibold">What I do</h2>
 
-      <p class="mt-2 text-muted-foreground">
-        I currently work as a freelancer doing Full Stack Web Dev for different
-        stages of teams and products. I particuarly enjoy the challenges of
-        working with small teams, taking a product from idea to the world.
-        <a href="/work" class="underline">Read more</a>
+      <p class="mt-3 text-muted-foreground">
+        I currently work as a <b>freelancer</b> doing full stack web dev for different
+        stages of teams and products. I particuarly enjoy the challenges of working
+        with small teams, taking a product from idea to the world. Working on small
+        teams has afforded me the chance to do a variety of roles; I've been the
+        <b>manager of the dev team</b>, the product analytics guy, <b
+          >the slinger of code</b
+        >, or whatever is required of me.
       </p>
     </header>
 
-    <ul class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <h3 class="text-xl font-semibold mb-7">Projects</h3>
+    <ul class="space-y-6">
       {
         projects.map(project => (
           <li>
-            <a href="/work">
-              <Card>
-                <CardHeader>
-                  <h3>{project.data.title}</h3>
-                </CardHeader>
-
-                <CardContent>
-                  <p class="line-clamp-5">{project.data.description}</p>
-                </CardContent>
-
-                <CardFooter className="gap-1.5 flex-wrap">
-                  {project.data.tech.map(tech => (
-                    <Badge>{tech}</Badge>
-                  ))}
-                </CardFooter>
-              </Card>
-            </a>
+            <ProjectCard project={project} />
           </li>
         ))
       }
     </ul>
+
+    <footer class="mt-7">
+      <a href="/work" class="underline"> View All</a>
+    </footer>
   </section>
 </Page>

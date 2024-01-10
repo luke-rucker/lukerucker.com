@@ -1,4 +1,5 @@
 ---
+import ProjectCard from '@/components/project-card.astro'
 import { Badge } from '@/components/ui/badge'
 import {
   Card,
@@ -44,27 +45,11 @@ const techs = [...new Set(allTheTechs)]
         }
       </ul>
 
-      <ul class="grid grid-cols-2 gap-4 grid-flow-row">
+      <ul class="space-y-6">
         {
           projects.map(project => (
             <li>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">
-                    {project.data.title}
-                  </CardTitle>
-                </CardHeader>
-
-                <CardContent>
-                  <p class="">{project.data.description}</p>
-                </CardContent>
-
-                <CardFooter className="gap-1.5 flex-wrap">
-                  {project.data.tech.map(tech => (
-                    <Badge>{tech}</Badge>
-                  ))}
-                </CardFooter>
-              </Card>
+              <ProjectCard project={project} />
             </li>
           ))
         }

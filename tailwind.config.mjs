@@ -15,7 +15,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ['JetBrains Mono Variable', ...defaultTheme.fontFamily.sans],
+        sans: ['Geist Variable', 'Geist', ...defaultTheme.fontFamily.sans],
       },
       aspectRatio: {
         '3/4': '3 / 4',
@@ -76,5 +76,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
 }

@@ -2,6 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Geist';
+  src:
+    url('/fonts/Geist-Medium.woff2') format('woff2'),
+    url('/fonts/Geist-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist';
+  src:
+    url('/fonts/Geist-Regular.woff2') format('woff2'),
+    url('/fonts/Geist-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Variable';
+  src: url('/fonts/GeistVariableVF.woff2') format('woff2-variations');
+  font-weight: 125 950;
+  font-stretch: 75% 125%;
+  font-style: oblique 0deg 20deg;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
