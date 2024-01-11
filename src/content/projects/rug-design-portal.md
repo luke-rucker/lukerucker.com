@@ -9,6 +9,8 @@ tech:
   - Cypress
   - Docker
   - Docker Swarm
+cover: ../../assets/rug.jpeg
+coverAlt: A living room with a beautiful rug on the floor
 ---
 
 Worked on an application for a German manufacturing company to manage every step of their rug manufacturing process, from design briefing,

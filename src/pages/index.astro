@@ -26,23 +26,29 @@ const projects = await Promise.all([
       class="pt-24 pb-20 flex flex-col-reverse md:flex-row justify-between gap-2"
     >
       <div>
-        <header>
-          <h1 class="text-4xl font-extrabold">Luke Rucker</h1>
-        </header>
-
-        <p class="mt-5 mb-2 text-muted-foreground">
-          Freelance dev building for the web. Typescript fanboy. Cyclist.
+        <p class="rounded-full py-2 px-3 mb-3 border w-fit">
+          <a
+            href="https://www.google.com/maps/place/Cambridge,+MA"
+            target="_blank"
+            class="text-muted-foreground text-xs flex items-center"
+          >
+            <i data-lucide="globe" class="h-4 w-4 mr-1"></i><span
+              class="hover:underline">Cambridge, MA, EST</span
+            >
+          </a>
         </p>
 
-        <a
-          href="https://www.google.com/maps/place/Cambridge,+MA"
-          target="_blank"
-          class="text-muted-foreground text-sm"
-        >
-          <i data-lucide="globe" class="h-5 w-5 inline mr-1.5"></i><span
-            class="hover:underline">Cambridge, MA, EST</span
+        <header>
+          <h1
+            class="text-3xl font-semibold leading-tight tracking-tight md:text-6xl"
           >
-        </a>
+            Luke Rucker
+          </h1>
+        </header>
+
+        <p class="mt-5 mb-2 text-base md:text-lg text-muted-foreground">
+          Freelance dev building for the web. Typescript fanboy. Cyclist.
+        </p>
 
         <footer class="mt-6 space-x-2">
           <a
@@ -51,7 +57,7 @@ const projects = await Promise.all([
             >Say Hi <i data-lucide="mail" class="ml-2 h-5 w-5 inline"></i></a
           >
 
-          <a href="/about" class={buttonVariants({ variant: 'secondary' })}
+          <a href="/about" class={buttonVariants({ variant: 'outline' })}
             >Learn More <i data-lucide="arrow-right" class="ml-2 h-5 w-5 inline"
             ></i></a
           >
@@ -83,13 +89,12 @@ const projects = await Promise.all([
       <h2 class="text-2xl font-semibold">What I do</h2>
 
       <p class="mt-3 text-muted-foreground">
-        I currently work as a <b>freelancer</b> doing full stack web dev for different
-        stages of teams and products. I particuarly enjoy the challenges of working
-        with small teams, taking a product from idea to the world. Working on small
-        teams has afforded me the chance to do a variety of roles; I've been the
-        <b>manager of the dev team</b>, the product analytics guy, <b
-          >the slinger of code</b
-        >, or whatever is required of me.
+        I currently work as a freelancer doing full stack web dev for different
+        stages of teams and products. I particuarly enjoy the challenges of
+        working with small teams, taking a product from idea to the world.
+        Working on small teams has afforded me the chance to do a variety of
+        roles; I've been the manager of the dev team, the tuner of database
+        indexes, the pusher of pixels, and most things in between.
       </p>
     </header>
 
