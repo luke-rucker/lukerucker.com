@@ -1,30 +1,37 @@
 ---
-const navItems = [
-  { title: 'Home', to: '/' },
-  { title: 'About', to: '/about' },
-  { title: 'Bookmarks', to: '/bookmarks' },
-  { title: 'Work', to: '/work' },
+const socials = [
+  { title: 'E-Mail', icon: 'mail', to: 'mailto:me@lukerucker.com' },
+  { title: 'Twitter', icon: 'twitter', to: 'https://twitter.com/lukeruckerr' },
+  { title: 'GitHub', icon: 'github', to: 'https://github.com/luke-rucker' },
+  {
+    title: 'Linkedin',
+    icon: 'linkedin',
+    to: 'https://linkedin.com/in/luke-rucker',
+  },
 ]
 ---
 
-<footer class="md:mb-8 border-t py-12">
+<footer class="md:mb-8 border-t py-8">
   <div
-    class="container mx-auto flex flex-col gap-8 md:flex-row md:items-center"
+    class="container mx-auto flex flex-col gap-8 md:flex-row md:items-center justify-between"
   >
-    <nav>
-      <ul class="flex items-center gap-4">
-        {
-          navItems.map(navItem => (
-            <li>
-              <a href={navItem.to} class="text-sm hover:underline">
-                {navItem.title}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
+    <p class="text-sm text-muted-foreground">
+      &copy; Luke Rucker. All rights reserved.
+    </p>
 
-    <ul></ul>
+    <ul class="flex items-center space-x-3">
+      {
+        socials.map(social => (
+          <li>
+            <a href={social.to} title={social.title} target="_blank">
+              <i
+                data-lucide={social.icon}
+                class="w-5 h-5 text-muted-foreground hover:text-foreground"
+              />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </footer>

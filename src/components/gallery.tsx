@@ -25,7 +25,7 @@ export function Gallery({ items }: { items: Array<ImageWithBlurhash> }) {
         {items.map(({ img, css }, index) => (
           <CarouselItem
             key={index}
-            className="basis-1/4 md:basis-1/6 lg:basis-1/12"
+            className="basis-1/4 md:basis-1/6 xl:basis-1/12"
           >
             <div className="relative block overflow-hidden aspect-3/4 rounded">
               <div
