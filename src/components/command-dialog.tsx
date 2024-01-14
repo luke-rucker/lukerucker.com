@@ -7,7 +7,6 @@ import {
   PersonIcon,
   RocketIcon,
 } from '@radix-ui/react-icons'
-
 import {
   CommandDialog as CommandDialogRoot,
   CommandEmpty,
@@ -22,72 +21,90 @@ import { useCommandState } from 'cmdk'
 
 export function CommandDialog() {
   const [open, setOpen] = React.useState(false)
+  const [search, setSearch] = React.useState('')
+  const [pages, setPages] = React.useState<Array<string>>([])
+  const page = pages[pages.length - 1]
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === 'j' && (e.metaKey || e.ctrlKey)) {
         e.preventDefault()
         setOpen(open => !open)
+      } else if (e.key === 'Escape' && open && pages.length === 0) {
+        console.log('here')
+        e.preventDefault()
+        setOpen(false)
+      } else if (e.key === 'Escape' || (e.key === 'Backspace' && !search)) {
+        console.log('there')
+        e.preventDefault()
+        setPages(pages => pages.slice(0, -1))
       }
     }
 
     document.addEventListener('keydown', down)
     return () => document.removeEventListener('keydown', down)
-  }, [])
+  }, [open, pages.length])
 
-  const SubItem = (props: React.ComponentProps<typeof CommandItem>) => {
-    const search = useCommandState(state => state.search)
-    if (!search) return null
-    return <CommandItem {...props} />
-  }
+  // const SubItem = (props: React.ComponentProps<typeof CommandItem>) => {
+  //   const search = useCommandState(state => state.search)
+  //   if (!search) return null
+  //   return <CommandItem {...props} />
+  // }
 
   return (
     <CommandDialogRoot open={open} onOpenChange={setOpen}>
-      <CommandInput placeholder="Type a command or search..." />
+      <CommandInput
+        placeholder="Type a command or search..."
+        value={search}
+        onValueChange={setSearch}
+      />
+
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
+        {!page && (
+          <>
+            <CommandGroup heading="Suggestions">
+              <CommandItem onSelect={() => setPages([...pages, 'socials'])}>
+                View Socials
+              </CommandItem>
 
-        <CommandGroup heading="Suggestions">
-          <CommandItem>
-            <CalendarIcon className="mr-2 h-4 w-4" />
-            <span>Calendar</span>
-          </CommandItem>
-          <CommandItem>
-            <FaceIcon className="mr-2 h-4 w-4" />
-            <span>Search Emoji</span>
-          </CommandItem>
-          <CommandItem>
-            <RocketIcon className="mr-2 h-4 w-4" />
-            <span>Launch</span>
-          </CommandItem>
-        </CommandGroup>
+              <CommandItem onSelect={() => setPages([...pages, 'navigation'])}>
+                Jump to...
+              </CommandItem>
+            </CommandGroup>
 
-        <CommandSeparator />
+            <CommandSeparator />
 
-        <CommandGroup heading="Settings">
-          <CommandItem
-            onSelect={() => {
-              console.log('hey')
-            }}
-          >
-            <PersonIcon className="mr-2 h-4 w-4" />
-            <span>Change theme</span>
-            {/* <CommandShortcut>⌘T</CommandShortcut> */}
-          </CommandItem>
-          <SubItem>Change theme to dark</SubItem>
-          <SubItem>Change theme to light</SubItem>
-
-          <CommandItem>
-            <EnvelopeClosedIcon className="mr-2 h-4 w-4" />
-            <span>Mail</span>
-            <CommandShortcut>⌘B</CommandShortcut>
-          </CommandItem>
-          <CommandItem>
-            <GearIcon className="mr-2 h-4 w-4" />
-            <span>Settings</span>
-            <CommandShortcut>⌘S</CommandShortcut>
-          </CommandItem>
-        </CommandGroup>
+            <CommandGroup heading="Settings">
+              <CommandItem onSelect={() => setPages([...pages, 'theme'])}>
+                Change Theme
+              </CommandItem>
+            </CommandGroup>
+          </>
+        )}
+        {page === 'socials' ? (
+          <CommandGroup heading="Socials">
+            <CommandItem>Copy Email</CommandItem>
+            <CommandItem>Open Twitter</CommandItem>
+            <CommandItem>Open GitHub</CommandItem>
+            <CommandItem>Open LinkedIn</CommandItem>
+          </CommandGroup>
+        ) : null}
+        {page === 'navigation' ? (
+          <CommandGroup heading="Jump to">
+            <CommandItem>Home</CommandItem>
+            <CommandItem>About</CommandItem>
+            <CommandItem>Bookmarks</CommandItem>
+            <CommandItem>Work</CommandItem>
+          </CommandGroup>
+        ) : null}
+        {page === 'theme' ? (
+          <CommandGroup heading="Theme">
+            <CommandItem>Change theme to light</CommandItem>
+            <CommandItem>Change theme to dark</CommandItem>
+            <CommandItem>Change theme to system</CommandItem>
+          </CommandGroup>
+        ) : null}
       </CommandList>
     </CommandDialogRoot>
   )
