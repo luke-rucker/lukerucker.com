@@ -104,9 +104,9 @@
 }
 
 @layer components {
-  @media (min-width: 1000px) {
+  @media (min-width: 950px) {
     .container {
-      max-width: 1000px;
+      max-width: 950px;
     }
   }
 }

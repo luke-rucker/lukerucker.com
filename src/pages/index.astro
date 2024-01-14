@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets'
 import { getCollection, getEntryBySlug } from 'astro:content'
 import Page from '@/layouts/page.astro'
 import { Gallery } from '@/components/gallery'
@@ -22,10 +21,8 @@ const projects = await Promise.all([
 
 <Page>
   <main class="container mx-auto">
-    <section
-      class="pt-24 pb-20 flex flex-col-reverse md:flex-row justify-between gap-2"
-    >
-      <div>
+    <section class="py-24 md:grid md:grid-cols-4">
+      <div class="md:col-span-3">
         <p class="rounded-full py-2 px-3 mb-3 border w-fit">
           <a
             href="https://www.google.com/maps/place/Cambridge,+MA"
@@ -40,7 +37,7 @@ const projects = await Promise.all([
 
         <header>
           <h1
-            class="text-3xl font-semibold leading-tight tracking-tight md:text-6xl"
+            class="text-4xl font-semibold leading-tight tracking-tight sm:text-6xl"
           >
             Luke Rucker
           </h1>
@@ -67,7 +64,7 @@ const projects = await Promise.all([
       <ImageWithBlurhash
         src={meUrl}
         alt="Me, Luke Rucker."
-        className="h-64 w-64"
+        className="hidden md:block"
       />
     </section>
   </main>
@@ -85,20 +82,32 @@ const projects = await Promise.all([
   </section>
 
   <section class="container mx-auto mb-20">
-    <header class="mb-4">
-      <h2 class="text-2xl font-semibold">What I do</h2>
+    <header class="max-w-2xl mb-8">
+      <p class="text-sm font-semibold leading-7 text-primary">
+        Software Development & Managment
+      </p>
 
-      <p class="mt-3 text-muted-foreground">
+      <h2 class="mt-2 text-3xl font-bold tracking-tight sm:text-5xl">
+        What I do
+      </h2>
+
+      <p class="mt-6 text-lg leading-8 text-bg-foreground">
         I currently work as a freelancer doing full stack web dev for different
         stages of teams and products. I particuarly enjoy the challenges of
         working with small teams, taking a product from idea to the world.
-        Working on small teams has afforded me the chance to do a variety of
-        roles; I've been the manager of the dev team, the tuner of database
+      </p>
+
+      <p class="mt-4 text-lg leading-8 text-bg-foreground">
+        Working on small teams has afforded me the oppurtunity to do a variety
+        of roles; I've been the manager of the dev team, the tuner of database
         indexes, the pusher of pixels, and most things in between.
       </p>
     </header>
 
-    <h3 class="text-xl font-semibold mb-7">Projects</h3>
+    <h3 class="text-2xl sm:text-4xl font-semibold tracking-tight my-7">
+      Projects
+    </h3>
+
     <ul class="space-y-6">
       {
         projects.map(project => (

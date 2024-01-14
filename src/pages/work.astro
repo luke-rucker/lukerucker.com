@@ -22,20 +22,24 @@ const techs = [...new Set(allTheTechs)]
 
 <Page>
   <main class="container mx-auto">
-    <section class="pt-24 pb-20">
-      <header>
-        <h1 class="text-4xl font-extrabold">My work</h1>
+    <section class="py-24">
+      <header class="max-w-2xl">
+        <h1
+          class="text-3xl font-semibold leading-tight tracking-tight sm:text-6xl"
+        >
+          My work
+        </h1>
+
+        <p class="mt-6 text-lg leading-8 text-gray-300">
+          Some examples of projects I've been involved in while freelancing, for
+          fun, or otherwise. I'm not currently looking for new work, but <a
+            class="underline"
+            href="mailto:me@lukerucker.com">drop me a line</a
+          > if you want to work with me in the future.
+        </p>
       </header>
 
-      <p class="mt-5 text-muted-foreground mb-8">
-        Some examples of projects I've been involved in while freelancing, for
-        fun, or otherwise. I'm not currently looking for new work, but <a
-          class="underline"
-          href="mailto:me@lukerucker.com">drop me a line</a
-        > if you want to work with me in the future.
-      </p>
-
-      <ul class="flex flex-wrap gap-2 mb-12">
+      <ul class="mt-6 flex flex-wrap gap-2 mb-12">
         {
           techs.map(tech => (
             <li>

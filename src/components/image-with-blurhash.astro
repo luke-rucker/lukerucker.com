@@ -22,5 +22,9 @@ const { css, img } = await getImageWithBlurhash(unprocessedImage)
   >
   </div>
 
-  <img {...img} class={cn('rounded', imageClassName)} loading="lazy" />
+  <img
+    {...img}
+    class={cn('object-cover object-center w-full h-full', imageClassName)}
+    loading="lazy"
+  />
 </div>

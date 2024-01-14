@@ -16,12 +16,11 @@ const { Content } = await project.render()
   <ImageWithBlurhash
     src={project.data.cover}
     alt={project.data.coverAlt}
-    className="col-span-1 rounded-r-none"
-    imageClassName="w-full h-full object-cover rounded-r-none"
+    className="col-span-1 rounded-xl rounded-b-none md:rounded-b-xl md:rounded-r-none border border-b-0 md:border-b md:border-r-0"
   />
 
   <div
-    class="col-span-2 p-4 rounded-xl rounded-l-none border bg-card text-card-foreground"
+    class="col-span-2 p-4 rounded-xl rounded-t-none md:rounded-r-xl md:rounded-l-none border border-t-0 md:border-t md:border-l-0 bg-card text-card-foreground"
   >
     <h4 class="text-lg font-medium mb-2">{project.data.title}</h4>
 

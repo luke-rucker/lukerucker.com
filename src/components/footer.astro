@@ -1,0 +1,30 @@
+---
+const navItems = [
+  { title: 'Home', to: '/' },
+  { title: 'About', to: '/about' },
+  { title: 'Bookmarks', to: '/bookmarks' },
+  { title: 'Work', to: '/work' },
+]
+---
+
+<footer class="md:mb-8 border-t py-12">
+  <div
+    class="container mx-auto flex flex-col gap-8 md:flex-row md:items-center"
+  >
+    <nav>
+      <ul class="flex items-center gap-4">
+        {
+          navItems.map(navItem => (
+            <li>
+              <a href={navItem.to} class="text-sm hover:underline">
+                {navItem.title}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <ul></ul>
+  </div>
+</footer>
