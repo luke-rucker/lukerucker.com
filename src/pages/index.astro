@@ -7,6 +7,11 @@ import meUrl from '@/assets/me.jpg'
 import { getImageWithBlurhash } from '@/lib/images'
 import ProjectCard from '@/components/project-card.astro'
 import ImageWithBlurhash from '@/components/image-with-blurhash.astro'
+import {
+  ArrowRightIcon,
+  EnvelopeClosedIcon,
+  GlobeIcon,
+} from '@radix-ui/react-icons'
 
 const pics = await getCollection('pics')
 const galleryItems = await Promise.all(
@@ -29,8 +34,8 @@ const projects = await Promise.all([
             target="_blank"
             class="text-muted-foreground text-xs flex items-center"
           >
-            <i data-lucide="globe" class="h-4 w-4 mr-1"></i><span
-              class="hover:underline">Cambridge, MA, EST</span
+            <GlobeIcon className="h-4 w-4 mr-1" /><span class="hover:underline"
+              >Cambridge, MA, EST</span
             >
           </a>
         </p>
@@ -51,12 +56,11 @@ const projects = await Promise.all([
           <a
             href="mailto:me@lukerucker.com"
             class={buttonVariants({ variant: 'default' })}
-            >Say Hi <i data-lucide="mail" class="ml-2 h-5 w-5 inline"></i></a
+            >Say Hi <EnvelopeClosedIcon className="ml-2 h-5 w-5" /></a
           >
 
           <a href="/about" class={buttonVariants({ variant: 'outline' })}
-            >Learn More <i data-lucide="arrow-right" class="ml-2 h-5 w-5 inline"
-            ></i></a
+            >Learn More <ArrowRightIcon className="ml-2 h-5 w-5" /></a
           >
         </footer>
       </div>
@@ -104,7 +108,7 @@ const projects = await Promise.all([
       </p>
     </header>
 
-    <h3 class="text-2xl sm:text-4xl font-semibold tracking-tight mt-9 mb-7">
+    <h3 class="text-2xl sm:text-4xl font-semibold tracking-tight mt-14 mb-7">
       Projects
     </h3>
 

@@ -1,11 +1,26 @@
 ---
+import {
+  EnvelopeClosedIcon,
+  GitHubLogoIcon,
+  LinkedInLogoIcon,
+  TwitterLogoIcon,
+} from '@radix-ui/react-icons'
+
 const socials = [
-  { title: 'E-Mail', icon: 'mail', to: 'mailto:me@lukerucker.com' },
-  { title: 'Twitter', icon: 'twitter', to: 'https://twitter.com/lukeruckerr' },
-  { title: 'GitHub', icon: 'github', to: 'https://github.com/luke-rucker' },
+  { title: 'E-Mail', icon: EnvelopeClosedIcon, to: 'mailto:me@lukerucker.com' },
+  {
+    title: 'Twitter',
+    icon: TwitterLogoIcon,
+    to: 'https://twitter.com/lukeruckerr',
+  },
+  {
+    title: 'GitHub',
+    icon: GitHubLogoIcon,
+    to: 'https://github.com/luke-rucker',
+  },
   {
     title: 'Linkedin',
-    icon: 'linkedin',
+    icon: LinkedInLogoIcon,
     to: 'https://linkedin.com/in/luke-rucker',
   },
 ]
@@ -24,10 +39,7 @@ const socials = [
         socials.map(social => (
           <li>
             <a href={social.to} title={social.title} target="_blank">
-              <i
-                data-lucide={social.icon}
-                class="w-5 h-5 text-muted-foreground hover:text-foreground"
-              />
+              <social.icon className="w-5 h-5 text-muted-foreground hover:text-foreground" />
             </a>
           </li>
         ))
