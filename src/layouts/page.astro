@@ -69,31 +69,6 @@ const {
       setTheme()
       document.addEventListener('astro:page-load', setTheme)
     </script>
-
-    <script>
-      // import {
-      //   createIcons,
-      //   Globe,
-      //   Mail,
-      //   ArrowRight,
-      //   Twitter,
-      //   Linkedin,
-      //   Github,
-      // } from 'lucide'
-
-      // document.addEventListener('astro:page-load', () =>
-      //   createIcons({
-      //     icons: {
-      //       Globe,
-      //       Mail,
-      //       ArrowRight,
-      //       Twitter,
-      //       Linkedin,
-      //       Github,
-      //     },
-      //   })
-      // )
-    </script>
   </head>
   <body>
     <Header />
@@ -102,7 +77,7 @@ const {
 
     <Footer />
 
-    <CommandDialog client:media="(min-width: 768px)" />
+    <CommandDialog client:media="(min-width: 768px)" client:only />
 
     <aside
       class="hidden md:flex items-center justify-center fixed h-8 z-10 bg-background bottom-0 left-0 right-0 border-t"

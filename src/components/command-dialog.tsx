@@ -1,13 +1,21 @@
 import * as React from 'react'
 import {
-  CalendarIcon,
-  EnvelopeClosedIcon,
-  FaceIcon,
-  GearIcon,
-  PersonIcon,
-  RocketIcon,
+  AvatarIcon,
+  BackpackIcon,
+  BookmarkIcon,
+  CopyIcon,
+  CursorArrowIcon,
+  GitHubLogoIcon,
+  HomeIcon,
+  IdCardIcon,
+  LaptopIcon,
+  LinkedInLogoIcon,
+  MoonIcon,
+  SunIcon,
+  TwitterLogoIcon,
 } from '@radix-ui/react-icons'
 import { useHotkeys } from 'react-hotkeys-hook'
+import { navigate } from 'astro:transitions/client'
 import {
   CommandDialog as CommandDialogRoot,
   CommandEmpty,
@@ -16,9 +24,7 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-  CommandShortcut,
 } from '@/components/ui/command'
-import { useCommandState } from 'cmdk'
 
 export function CommandDialog() {
   const [open, setOpen] = React.useState(false)
@@ -27,15 +33,18 @@ export function CommandDialog() {
   const page = pages[pages.length - 1]
 
   const goBackAPage = () => setPages(pages => pages.slice(0, -1))
+  const setPage = (page: string) => {
+    setPages([...pages, page])
+    setSearch('')
+  }
 
   useHotkeys('mod+k', () => setOpen(open => !open))
   useHotkeys('esc', goBackAPage)
 
-  // const SubItem = (props: React.ComponentProps<typeof CommandItem>) => {
-  //   const search = useCommandState(state => state.search)
-  //   if (!search) return null
-  //   return <CommandItem {...props} />
-  // }
+  const jumpTo = (path: string) => {
+    navigate(path)
+    setOpen(false)
+  }
 
   return (
     <CommandDialogRoot
@@ -45,21 +54,23 @@ export function CommandDialog() {
       onOpenChange={setOpen}
     >
       <CommandInput
-        placeholder="Type a command or search..."
         value={search}
         onValueChange={setSearch}
+        placeholder="Type a command or search..."
       />
 
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
-        {!page && (
+        {!page ? (
           <>
             <CommandGroup heading="Suggestions">
-              <CommandItem onSelect={() => setPages([...pages, 'socials'])}>
+              <CommandItem onSelect={() => setPage('socials')}>
+                <IdCardIcon className="mr-2 h-4 w-4" />
                 View Socials
               </CommandItem>
 
-              <CommandItem onSelect={() => setPages([...pages, 'navigation'])}>
+              <CommandItem onSelect={() => setPage('navigation')}>
+                <CursorArrowIcon className="mr-2 h-4 w-4" />
                 Jump to...
               </CommandItem>
             </CommandGroup>
@@ -67,39 +78,92 @@ export function CommandDialog() {
             <CommandSeparator />
 
             <CommandGroup heading="Settings">
-              <CommandItem onSelect={() => setPages([...pages, 'theme'])}>
-                Change Theme
+              <CommandItem onSelect={() => setPage('theme')}>
+                {document.documentElement.classList.contains('light') ? (
+                  <MoonIcon className="mr-2 h-4 w-4" />
+                ) : (
+                  <SunIcon className="mr-2 h-4 w-4" />
+                )}
+                Change theme
               </CommandItem>
             </CommandGroup>
           </>
-        )}
+        ) : null}
 
         {page === 'socials' ? (
           <CommandGroup heading="Socials">
-            <CommandItem>Copy Email</CommandItem>
-            <CommandItem>Open Twitter</CommandItem>
-            <CommandItem>Open GitHub</CommandItem>
-            <CommandItem>Open LinkedIn</CommandItem>
+            <CommandItem>
+              <CopyIcon className="mr-2 h-4 w-4" />
+              Copy Email
+            </CommandItem>
+            <CommandItem>
+              <TwitterLogoIcon className="mr-2 h-4 w-4" />
+              Open Twitter
+            </CommandItem>
+            <CommandItem>
+              <GitHubLogoIcon className="mr-2 h-4 w-4" />
+              Open GitHub
+            </CommandItem>
+            <CommandItem>
+              <LinkedInLogoIcon className="mr-2 h-4 w-4" />
+              Open LinkedIn
+            </CommandItem>
           </CommandGroup>
         ) : null}
 
         {page === 'navigation' ? (
           <CommandGroup heading="Jump to">
-            <CommandItem>Home</CommandItem>
-            <CommandItem>About</CommandItem>
-            <CommandItem>Bookmarks</CommandItem>
-            <CommandItem>Work</CommandItem>
+            <CommandItem onSelect={() => jumpTo('/')}>
+              <HomeIcon className="mr-2 h-4 w-4" />
+              Home
+            </CommandItem>
+            <CommandItem onSelect={() => jumpTo('/about')}>
+              <AvatarIcon className="mr-2 h-4 w-4" />
+              About
+            </CommandItem>
+            <CommandItem onSelect={() => jumpTo('/bookmarks')}>
+              <BookmarkIcon className="mr-2 h-4 w-4" />
+              Bookmarks
+            </CommandItem>
+            <CommandItem onSelect={() => jumpTo('/work')}>
+              <BackpackIcon className="mr-2 h-4 w-4" />
+              Work
+            </CommandItem>
           </CommandGroup>
         ) : null}
 
         {page === 'theme' ? (
           <CommandGroup heading="Theme">
-            <CommandItem>Change theme to light</CommandItem>
-            <CommandItem>Change theme to dark</CommandItem>
-            <CommandItem>Change theme to system</CommandItem>
+            <CommandItem onSelect={() => setTheme('light')}>
+              <SunIcon className="mr-2 h-4 w-4" />
+              Change theme to light
+            </CommandItem>
+            <CommandItem onSelect={() => setTheme('dark')}>
+              <MoonIcon className="mr-2 h-4 w-4" />
+              Change theme to dark
+            </CommandItem>
+            <CommandItem onSelect={() => setTheme('system')}>
+              <LaptopIcon className="mr-2 h-4 w-4" />
+              Change theme to system
+            </CommandItem>
           </CommandGroup>
         ) : null}
       </CommandList>
     </CommandDialogRoot>
   )
+}
+
+type Theme = 'light' | 'dark' | 'system'
+
+function setTheme(theme: Theme) {
+  localStorage.setItem('theme', theme)
+
+  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+    ? 'dark'
+    : 'light'
+
+  const newTheme = theme === 'system' ? systemTheme : theme
+
+  document.documentElement.classList.remove('light', 'dark')
+  document.documentElement.classList.add(newTheme)
 }
