@@ -7,6 +7,7 @@ import {
   PersonIcon,
   RocketIcon,
 } from '@radix-ui/react-icons'
+import { useHotkeys } from 'react-hotkeys-hook'
 import {
   CommandDialog as CommandDialogRoot,
   CommandEmpty,
@@ -25,25 +26,10 @@ export function CommandDialog() {
   const [pages, setPages] = React.useState<Array<string>>([])
   const page = pages[pages.length - 1]
 
-  React.useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      if (e.key === 'j' && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault()
-        setOpen(open => !open)
-      } else if (e.key === 'Escape' && open && pages.length === 0) {
-        console.log('here')
-        e.preventDefault()
-        setOpen(false)
-      } else if (e.key === 'Escape' || (e.key === 'Backspace' && !search)) {
-        console.log('there')
-        e.preventDefault()
-        setPages(pages => pages.slice(0, -1))
-      }
-    }
+  const goBackAPage = () => setPages(pages => pages.slice(0, -1))
 
-    document.addEventListener('keydown', down)
-    return () => document.removeEventListener('keydown', down)
-  }, [open, pages.length])
+  useHotkeys('mod+k', () => setOpen(open => !open))
+  useHotkeys('esc', goBackAPage)
 
   // const SubItem = (props: React.ComponentProps<typeof CommandItem>) => {
   //   const search = useCommandState(state => state.search)
@@ -52,7 +38,12 @@ export function CommandDialog() {
   // }
 
   return (
-    <CommandDialogRoot open={open} onOpenChange={setOpen}>
+    <CommandDialogRoot
+      ignoreEscapeKeyDown={pages.length > 0}
+      onIgnoredEscapeKeyDown={goBackAPage}
+      open={open}
+      onOpenChange={setOpen}
+    >
       <CommandInput
         placeholder="Type a command or search..."
         value={search}
@@ -82,6 +73,7 @@ export function CommandDialog() {
             </CommandGroup>
           </>
         )}
+
         {page === 'socials' ? (
           <CommandGroup heading="Socials">
             <CommandItem>Copy Email</CommandItem>
@@ -90,6 +82,7 @@ export function CommandDialog() {
             <CommandItem>Open LinkedIn</CommandItem>
           </CommandGroup>
         ) : null}
+
         {page === 'navigation' ? (
           <CommandGroup heading="Jump to">
             <CommandItem>Home</CommandItem>
@@ -98,6 +91,7 @@ export function CommandDialog() {
             <CommandItem>Work</CommandItem>
           </CommandGroup>
         ) : null}
+
         {page === 'theme' ? (
           <CommandGroup heading="Theme">
             <CommandItem>Change theme to light</CommandItem>
