@@ -3,6 +3,7 @@ import {
   AvatarIcon,
   BackpackIcon,
   BookmarkIcon,
+  CheckCircledIcon,
   CopyIcon,
   CursorArrowIcon,
   GitHubLogoIcon,
@@ -44,6 +45,21 @@ export function CommandDialog() {
   const jumpTo = (path: string) => {
     navigate(path)
     setOpen(false)
+  }
+
+  const [copied, setCopied] = React.useState(false)
+
+  React.useEffect(() => {
+    if (!copied) return
+    const reset = setTimeout(() => setCopied(false), 2500)
+    return () => clearTimeout(reset)
+  }, [copied])
+
+  const copy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopied(true)
+    } catch {}
   }
 
   return (
@@ -92,19 +108,31 @@ export function CommandDialog() {
 
         {page === 'socials' ? (
           <CommandGroup heading="Socials">
-            <CommandItem>
-              <CopyIcon className="mr-2 h-4 w-4" />
+            <CommandItem onSelect={() => copy('me@lukerucker.com')}>
+              {copied ? (
+                <CheckCircledIcon className="mr-2 h-4 w-4" />
+              ) : (
+                <CopyIcon className="mr-2 h-4 w-4" />
+              )}
               Copy Email
             </CommandItem>
-            <CommandItem>
+            <CommandItem
+              onSelect={() => window.open('https://twitter.com/lukeruckerr')}
+            >
               <TwitterLogoIcon className="mr-2 h-4 w-4" />
               Open Twitter
             </CommandItem>
-            <CommandItem>
+            <CommandItem
+              onSelect={() => window.open('https://github.com/luke-rucker')}
+            >
               <GitHubLogoIcon className="mr-2 h-4 w-4" />
               Open GitHub
             </CommandItem>
-            <CommandItem>
+            <CommandItem
+              onSelect={() =>
+                window.open('https://linkedin.com/in/luke-rucker')
+              }
+            >
               <LinkedInLogoIcon className="mr-2 h-4 w-4" />
               Open LinkedIn
             </CommandItem>
