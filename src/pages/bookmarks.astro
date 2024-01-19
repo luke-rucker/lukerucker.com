@@ -16,11 +16,9 @@ if (scrapedBookmarks.some(bookmark => bookmark.error)) {
   throw new Error('Bookmark scraping failed')
 }
 
-const bookmarks = scrapedBookmarks
-  .map(bookmark => bookmark.result)
-  .filter(bookmark => !!bookmark.ogImage && bookmark.ogImage.length > 0)
+const bookmarks = scrapedBookmarks.map(bookmark => bookmark.result)
 
-console.log(bookmarks)
+// console.log(bookmarks)
 ---
 
 <Page
@@ -58,11 +56,13 @@ console.log(bookmarks)
                 href={bookmark.requestUrl}
                 title={bookmark.ogTitle!}
               >
-                <ImageWithBlurhash
-                  src={bookmark.ogImage?.at(0)?.url!}
-                  alt={bookmark.ogTitle!}
-                  className="mb-3"
-                />
+                {bookmark.ogImage ? (
+                  <ImageWithBlurhash
+                    src={bookmark.ogImage?.at(0)?.url!}
+                    alt={bookmark.ogTitle!}
+                    className="mb-3"
+                  />
+                ) : null}
 
                 <h4 class="text-xl font-semibold mb-2">{bookmark.ogTitle}</h4>
 

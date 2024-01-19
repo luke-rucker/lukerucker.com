@@ -1,8 +1,10 @@
+- https://fly.io/blog/how-we-got-to-liveview/
+- https://netflixtechblog.com/high-quality-video-encoding-at-scale-d159db052746
 - https://discord.com/blog/how-discord-indexes-billions-of-messages
 - https://discord.com/blog/how-discord-stores-billions-of-messages
-- https://fly.io/blog/how-we-got-to-liveview/
 - https://developer.valvesoftware.com/wiki/Latency_Compensating_Methods_in_Client/Server_In-game_Protocol_Design_and_Optimization
 - https://cstack.github.io/db_tutorial/
+- https://kentcdodds.com/blog/don-t-solve-problems-eliminate-them
 - https://planetscale.com/blog/distributed-caching-systems-and-mysql
 - https://slack.engineering/scaling-slacks-job-queue/
 - http://www.sarahmei.com/blog/2013/11/11/why-you-should-never-use-mongodb/
