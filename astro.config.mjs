@@ -10,6 +10,9 @@ export default defineConfig({
   prefetch: {
     defaultStrategy: 'viewport',
   },
+  image: {
+    remotePatterns: [{ protocol: 'https' }],
+  },
   integrations: [
     mdx(),
     sitemap(),

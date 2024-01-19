@@ -20,4 +20,9 @@ const pics = defineCollection({
     }),
 })
 
-export const collections = { projects, pics }
+const bookmarks = defineCollection({
+  type: 'data',
+  schema: z.array(z.string().url()),
+})
+
+export const collections = { projects, pics, bookmarks }

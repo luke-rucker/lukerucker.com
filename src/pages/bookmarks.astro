@@ -1,0 +1,81 @@
+---
+import ImageWithBlurhash from '@/components/image-with-blurhash.astro'
+import { Favicon, LinkPreview } from '@/components/link-preview'
+import Page from '@/layouts/page.astro'
+import { getDataEntryById } from 'astro:content'
+import ogs from 'open-graph-scraper'
+
+const allBookmarks = await getDataEntryById('bookmarks', 'all')
+const bookmarkUrls = allBookmarks.data
+
+const scrapedBookmarks = await Promise.all(
+  bookmarkUrls.map(bookmark => ogs({ url: bookmark }))
+)
+
+if (scrapedBookmarks.some(bookmark => bookmark.error)) {
+  throw new Error('Bookmark scraping failed')
+}
+
+const bookmarks = scrapedBookmarks
+  .map(bookmark => bookmark.result)
+  .filter(bookmark => !!bookmark.ogImage && bookmark.ogImage.length > 0)
+
+console.log(bookmarks)
+---
+
+<Page
+  title="Bookmarks | Luke Rucker"
+  description="Some things I've read and liked."
+>
+  <main class="container mx-auto">
+    <section class="py-12 md:py-24">
+      <header class="max-w-2xl">
+        <h1
+          class="text-3xl font-semibold leading-tight tracking-tight sm:text-6xl"
+        >
+          Bookmarks
+        </h1>
+
+        <p class="mt-6 text-lg leading-8 text-muted-foreground">
+          Some things I've read and liked.
+        </p>
+      </header>
+
+      <ul class="mt-8 md:mt-12 grid grid-cols-1 md:grid-cols-2 gap-12">
+        {
+          bookmarks.map(bookmark => (
+            <li>
+              <p class="mb-3 flex items-center space-x-2">
+                <Favicon client:load og={bookmark} />
+                <span class="text-xs text-muted-foreground">
+                  {new URL(bookmark.requestUrl ?? '').host}
+                </span>
+              </p>
+
+              <LinkPreview
+                client:load
+                client:only
+                href={bookmark.requestUrl}
+                title={bookmark.ogTitle!}
+              >
+                <ImageWithBlurhash
+                  src={bookmark.ogImage?.at(0)?.url!}
+                  alt={bookmark.ogTitle!}
+                  className="mb-3"
+                />
+
+                <h4 class="text-xl font-semibold mb-2">{bookmark.ogTitle}</h4>
+
+                <p class="text-sm text-muted-foreground">
+                  {new URL(bookmark.requestUrl ?? '').host}
+                </p>
+              </LinkPreview>
+
+              <p class="mt-4 text-sm">{bookmark.ogDescription}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </main>
+</Page>

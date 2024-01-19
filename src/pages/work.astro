@@ -1,13 +1,6 @@
 ---
 import ProjectCard from '@/components/project-card.astro'
 import { Badge } from '@/components/ui/badge'
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  CardFooter,
-  CardTitle,
-} from '@/components/ui/card'
 import Page from '@/layouts/page.astro'
 import { getCollection } from 'astro:content'
 
@@ -20,9 +13,12 @@ const allTheTechs = projects.reduce<Array<string>>((techs, project) => {
 const techs = [...new Set(allTheTechs)]
 ---
 
-<Page>
+<Page
+  title="My work | Luke Rucker"
+  description="Some examples of projects I've had a hand in."
+>
   <main class="container mx-auto">
-    <section class="py-24">
+    <section class="py-12 md:py-24">
       <header class="max-w-2xl">
         <h1
           class="text-3xl font-semibold leading-tight tracking-tight sm:text-6xl"
@@ -30,7 +26,7 @@ const techs = [...new Set(allTheTechs)]
           My work
         </h1>
 
-        <p class="mt-6 text-lg leading-8 text-gray-300">
+        <p class="mt-6 text-lg leading-8 text-muted-foreground">
           Some examples of projects I've been involved in while freelancing, for
           fun, or otherwise. I'm not currently looking for new work, but <a
             class="underline"
