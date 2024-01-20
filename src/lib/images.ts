@@ -1,6 +1,7 @@
 import type { ImageMetadata } from 'astro'
 import { getImage } from 'astro:assets'
 import os from 'node:os'
+import path from 'node:path'
 import fs from 'node:fs/promises'
 import { getPlaiceholder } from 'plaiceholder'
 
@@ -27,8 +28,12 @@ export async function getImageWithBlurhash(image: {
 async function getImageBuffer(src: ImageMetadata | string) {
   if (typeof src === 'object') {
     const original = src.src.split('?')[0]
-    const path = new URL(replaceFileSystemReferences(original), import.meta.url)
-    return await fs.readFile(path)
+    const imagePath = import.meta.env.PROD
+      ? path.join('../../', replaceFileSystemReferences(original))
+      : replaceFileSystemReferences(original)
+
+    const url = new URL(imagePath, import.meta.url)
+    return await fs.readFile(url)
   }
 
   const res = await fetch(src)
