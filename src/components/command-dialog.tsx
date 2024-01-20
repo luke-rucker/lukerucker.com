@@ -108,7 +108,7 @@ export function CommandDialog() {
 
         {page === 'socials' ? (
           <CommandGroup heading="Socials">
-            <CommandItem onSelect={() => copy('me@lukerucker.com')}>
+            <CommandItem onSelect={() => copy('luke@springsoftware.dev')}>
               {copied ? (
                 <CheckCircledIcon className="mr-2 h-4 w-4" />
               ) : (
