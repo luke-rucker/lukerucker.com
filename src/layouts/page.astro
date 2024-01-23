@@ -48,9 +48,10 @@ const {
     <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
     <ViewTransitions />
-
+  </head>
+  <body>
     <script is:inline>
-      function setTheme() {
+      function setTheme(document) {
         const persistedTheme = localStorage.getItem('theme')
         const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
           .matches
@@ -66,11 +67,12 @@ const {
         document.documentElement.classList.add(theme)
       }
 
-      setTheme()
-      document.addEventListener('astro:page-load', setTheme)
+      setTheme(document)
+      document.addEventListener('astro:before-swap', ev =>
+        setTheme(ev.newDocument)
+      )
     </script>
-  </head>
-  <body>
+
     <Header />
 
     <slot />
