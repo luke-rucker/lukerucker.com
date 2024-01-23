@@ -48,8 +48,7 @@ const {
     <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
     <ViewTransitions />
-  </head>
-  <body>
+
     <script is:inline>
       function setTheme(document) {
         const persistedTheme = localStorage.getItem('theme')
@@ -72,7 +71,8 @@ const {
         setTheme(ev.newDocument)
       )
     </script>
-
+  </head>
+  <body>
     <Header />
 
     <slot />

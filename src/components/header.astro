@@ -29,13 +29,13 @@ const navItems = [
     <ul class="hidden md:flex items-center gap-2">
       {
         navItems.map(navItem => (
-          <li>
+          <li class="">
             <a
+              data-nav-link
               href={navItem.to}
               class:list={[
-                Astro.url.pathname === navItem.to &&
-                  'bg-accent text-accent-foreground',
                 buttonVariants({ variant: 'ghost' }),
+                'aria-[current=page]:bg-accent aria-[current=page]:text-accent-foreground',
               ]}
             >
               {navItem.title}
@@ -46,7 +46,22 @@ const navItems = [
     </ul>
 
     <div class="md:hidden">
-      <MobileNav client:visible currentPathname={Astro.url.pathname} />
+      <MobileNav client:load />
     </div>
   </nav>
 </header>
+
+<script is:inline>
+  function setNavLinks() {
+    document.querySelectorAll('a[data-nav-link]').forEach(link => {
+      if (link.getAttribute('href') === window.location.pathname) {
+        link.setAttribute('aria-current', 'page')
+      } else {
+        link.removeAttribute('aria-current')
+      }
+    })
+  }
+
+  setNavLinks()
+  document.addEventListener('astro:page-load', setNavLinks)
+</script>

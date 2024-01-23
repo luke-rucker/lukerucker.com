@@ -4,10 +4,16 @@ import {
   SheetHeader,
   SheetTrigger,
 } from '@/components/ui/sheet'
-import { cn } from '@/lib/utils'
 import { HamburgerMenuIcon } from '@radix-ui/react-icons'
+import * as React from 'react'
 
-export function MobileNav({ currentPathname }: { currentPathname: string }) {
+export function MobileNav() {
+  const [currentPathname, setCurrentPathname] = React.useState('')
+
+  React.useEffect(() => {
+    setCurrentPathname(window.location.pathname)
+  }, [])
+
   return (
     <Sheet>
       <SheetTrigger>
@@ -27,8 +33,11 @@ export function MobileNav({ currentPathname }: { currentPathname: string }) {
           ].map(navItem => (
             <li key={navItem.title}>
               <a
+                {...(currentPathname === navItem.to
+                  ? { 'aria-current': 'page' }
+                  : null)}
                 href={navItem.to}
-                className={cn([currentPathname === navItem.to && 'underline'])}
+                className="aria-[current=page]:underline"
               >
                 {navItem.title}
               </a>
