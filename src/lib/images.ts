@@ -17,11 +17,24 @@ export async function getImageWithBlurhash(image: {
     css,
   } = await getPlaiceholder(buffer)
 
-  const { src, attributes } = await getImage({ src: image.src, height, width })
+  const { src, attributes, srcSet } = await getImage({
+    src: image.src,
+    height,
+    width,
+    quality: 'low',
+    densities: [1.5, 2],
+  })
 
   return {
     css,
-    img: { ...attributes, src, height, width, alt: image.alt },
+    img: {
+      ...attributes,
+      src,
+      height,
+      width,
+      alt: image.alt,
+      srcSet: srcSet.attribute,
+    },
   }
 }
 
