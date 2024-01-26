@@ -29,7 +29,7 @@ export function Gallery({ items }: { items: Array<ImageWithBlurhash> }) {
           >
             <div className="relative block overflow-hidden aspect-3/4 rounded">
               <div
-                aria-hidden
+                aria-hidden="true"
                 style={css}
                 className="absolute inset-0 w-full h-full transform scale-150 filter blur-2xl z-[-1]"
               />
