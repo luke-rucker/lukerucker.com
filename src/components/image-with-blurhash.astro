@@ -3,18 +3,18 @@ import type { ImageMetadata } from 'astro'
 import { cn } from '@/lib/utils'
 import { getImageWithBlurhash } from '@/lib/images'
 
-interface Props {
+type Props = Omit<astroHTML.JSX.ImgHTMLAttributes, 'src'> & {
   src: ImageMetadata | string
   alt: string
   className?: string
-  imageClassName?: string
+  containerClassname?: string
 }
 
-const { className, imageClassName, ...unprocessedImage } = Astro.props
-const { css, img } = await getImageWithBlurhash(unprocessedImage)
+const { src, alt, className, containerClassname, ...imageProps } = Astro.props
+const { css, img } = await getImageWithBlurhash({ src, alt })
 ---
 
-<div class={cn('relative block overflow-hidden rounded', className)}>
+<div class={cn('relative block overflow-hidden rounded', containerClassname)}>
   <div
     aria-hidden
     style={css}
@@ -24,7 +24,7 @@ const { css, img } = await getImageWithBlurhash(unprocessedImage)
 
   <img
     {...img}
-    class={cn('object-cover object-center w-full h-full', imageClassName)}
-    loading="lazy"
+    {...imageProps}
+    class={cn('object-cover object-center w-full h-full', className)}
   />
 </div>
