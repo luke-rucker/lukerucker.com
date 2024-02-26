@@ -15,7 +15,8 @@ const { Content } = await project.render()
   <ImageWithBlurhash
     src={project.data.cover}
     alt={project.data.coverAlt}
-    className="col-span-1 rounded-xl rounded-b-none md:rounded-b-xl md:rounded-r-none border border-b-0 md:border-b md:border-r-0"
+    className="col-span-1 rounded-xl rounded-b-none md:rounded-b-xl md:rounded-r-none"
+    containerClassname="rounded-xl rounded-b-none md:rounded-b-xl md:rounded-r-none border border-b-0 md:border-b md:border-r-0 shadow"
   />
 
   <div
