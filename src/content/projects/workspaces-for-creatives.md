@@ -1,11 +1,12 @@
 ---
-title: 'Full Stack Typescript <3'
+title: 'Workspaces for Creatives'
 tech:
   - React
   - React Native
   - Node.js
   - tRPC
   - Postgres
+  - Redis
   - BullMQ
   - Solidity
   - Docker

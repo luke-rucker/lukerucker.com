@@ -74,15 +74,15 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
+  }
 
-    * {
-      @apply border-border;
-    }
+  * {
+    @apply border-border;
   }
 }
 
 @layer components {
   .container {
-    max-width: 780px;
+    max-width: 65ch;
   }
 }
