@@ -17,8 +17,6 @@ if (scrapedBookmarks.some(bookmark => bookmark.error)) {
 }
 
 const bookmarks = scrapedBookmarks.map(bookmark => bookmark.result)
-
-// console.log(bookmarks)
 ---
 
 <Page
@@ -28,13 +26,9 @@ const bookmarks = scrapedBookmarks.map(bookmark => bookmark.result)
   <main class="container mx-auto">
     <section class="py-12 md:py-24">
       <header class="max-w-2xl">
-        <h1
-          class="text-3xl font-semibold leading-tight tracking-tight sm:text-6xl"
-        >
-          Bookmarks
-        </h1>
+        <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">Bookmarks</h1>
 
-        <p class="mt-6 text-lg leading-8 text-muted-foreground">
+        <p class="mt-6 text-lg text-muted-foreground">
           Some things I've read and liked.
         </p>
       </header>

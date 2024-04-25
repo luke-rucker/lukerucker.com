@@ -2,6 +2,7 @@
 import { Badge } from '@/components/ui/badge'
 import type { CollectionEntry } from 'astro:content'
 import ImageWithBlurhash from '@/components/image-with-blurhash.astro'
+import { ExpandableText } from '@/components/expandable-text'
 
 interface Props {
   project: CollectionEntry<'projects'>
@@ -11,32 +12,26 @@ const { project } = Astro.props
 const { Content } = await project.render()
 ---
 
-<div class="md:grid md:grid-cols-3 rounded-xl shadow">
-  <ImageWithBlurhash
-    src={project.data.cover}
-    alt={project.data.coverAlt}
-    className="col-span-1 rounded-xl rounded-b-none md:rounded-b-xl md:rounded-r-none"
-    containerClassname="rounded-xl rounded-b-none md:rounded-b-xl md:rounded-r-none border border-b-0 md:border-b md:border-r-0 shadow"
-  />
+<ImageWithBlurhash
+  src={project.data.cover}
+  alt={project.data.coverAlt}
+  className="max-h-60 rounded-lg"
+  containerClassname="rounded-lg"
+/>
 
-  <div
-    class="col-span-2 p-4 rounded-xl rounded-t-none md:rounded-r-xl md:rounded-l-none border border-t-0 md:border-t md:border-l-0 bg-card text-card-foreground"
-  >
-    <h4 class="text-lg font-semibold mb-3">{project.data.title}</h4>
+<h4 class="text-3xl font-semibold mt-8 mb-4">{project.data.title}</h4>
 
-    <p class="sr-only">Technologies:</p>
-    <ul class="flex gap-1.5 flex-wrap mb-4">
-      {
-        project.data.tech.map(tech => (
-          <li>
-            <Badge>{tech}</Badge>
-          </li>
-        ))
-      }
-    </ul>
+<p class="sr-only">Technologies:</p>
+<ul class="flex flex-wrap gap-x-1.5 gap-y-2">
+  {
+    project.data.tech.map(tech => (
+      <li>
+        <Badge>{tech}</Badge>
+      </li>
+    ))
+  }
+</ul>
 
-    <div class="prose dark:prose-invert">
-      <Content />
-    </div>
-  </div>
-</div>
+<ExpandableText preview={project.data.preview} client:load>
+  <Content />
+</ExpandableText>

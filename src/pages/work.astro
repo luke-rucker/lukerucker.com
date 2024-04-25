@@ -5,12 +5,6 @@ import Page from '@/layouts/page.astro'
 import { getCollection } from 'astro:content'
 
 const projects = await getCollection('projects')
-
-const allTheTechs = projects.reduce<Array<string>>((techs, project) => {
-  project.data.tech.forEach(tech => techs.push(tech))
-  return techs
-}, [])
-const techs = [...new Set(allTheTechs)]
 ---
 
 <Page
@@ -19,14 +13,10 @@ const techs = [...new Set(allTheTechs)]
 >
   <main class="container mx-auto">
     <section class="py-12 md:py-24">
-      <header class="max-w-2xl">
-        <h1
-          class="text-3xl font-semibold leading-tight tracking-tight sm:text-6xl"
-        >
-          My work
-        </h1>
+      <header class="max-w-2xl mb-12">
+        <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">My work</h1>
 
-        <p class="mt-6 text-lg leading-8 text-muted-foreground">
+        <p class="mt-6 text-lg text-muted-foreground">
           Some examples of projects I've been involved in while freelancing, for
           fun, or otherwise. I'm not currently looking for new work, but <a
             class="underline"
@@ -35,17 +25,7 @@ const techs = [...new Set(allTheTechs)]
         </p>
       </header>
 
-      <ul class="mt-6 flex flex-wrap gap-2 mb-12">
-        {
-          techs.map(tech => (
-            <li>
-              <Badge>{tech}</Badge>
-            </li>
-          ))
-        }
-      </ul>
-
-      <ul class="space-y-6">
+      <ul class="space-y-10 md:space-y-18">
         {
           projects.map(project => (
             <li>

@@ -1,4 +1,5 @@
 import { defineCollection, z } from 'astro:content'
+import { marked } from 'marked'
 
 const projects = defineCollection({
   type: 'content',
@@ -8,6 +9,7 @@ const projects = defineCollection({
       tech: z.string().array(),
       cover: image(),
       coverAlt: z.string(),
+      preview: z.string().transform(preview => marked.parse(preview)),
     }),
 })
 

@@ -4,7 +4,7 @@ import Page from '@/layouts/page.astro'
 import { Gallery } from '@/components/gallery'
 import { buttonVariants } from '@/components/ui/button'
 import { getImageWithBlurhash } from '@/lib/images'
-import ProjectCard from '@/components/project-card-2.astro'
+import ProjectCard from '@/components/project-card.astro'
 import {
   ArrowRightIcon,
   EnvelopeClosedIcon,
@@ -17,7 +17,7 @@ const galleryItems = await Promise.all(
 )
 
 const projects = await Promise.all([
-  getEntryBySlug('projects', 'workspaces-for-creatives'),
+  getEntryBySlug('projects', 'file-sharing-for-musicians'),
   getEntryBySlug('projects', 'rug-design-portal'),
 ])
 ---
@@ -90,10 +90,9 @@ const projects = await Promise.all([
         <br />
         <br />
 
-        Working on small teams has afforded me the oppurtunity to do a variety
+        Working on small teams has afforded me the opportunity to do a variety
         of roles; I've been the manager of the dev team, the tuner of database
-        indexes, the pusher of pixels, and most things in between. I'm not
-        saying I'm good at all those things, but I have done them.
+        indexes, the pusher of pixels, and most things in between.
       </p>
     </div>
   </section>
@@ -105,7 +104,7 @@ const projects = await Promise.all([
       <p class="mt-6 text-lg text-muted-foreground">Some things I've built</p>
     </header>
 
-    <ul class="space-y-10 md:space-y-14">
+    <ul class="space-y-10 md:space-y-18">
       {
         projects.map(project => (
           <li>
@@ -116,7 +115,12 @@ const projects = await Promise.all([
     </ul>
 
     <footer class="mt-8">
-      <a href="/work" class="underline"> View All</a>
+      <a
+        href="/work"
+        class={buttonVariants({ variant: 'default', size: 'lg' })}
+      >
+        View All</a
+      >
     </footer>
   </section>
 </Page>
