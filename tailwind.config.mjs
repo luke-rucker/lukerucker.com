@@ -14,9 +14,6 @@ module.exports = {
       },
     },
     extend: {
-      fontFamily: {
-        sans: ['Geist Variable', 'Geist', ...defaultTheme.fontFamily.sans],
-      },
       aspectRatio: {
         '3/4': '3 / 4',
       },
